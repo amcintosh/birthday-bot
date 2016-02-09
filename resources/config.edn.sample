@@ -1,0 +1,5 @@
+{:birthday-webpage 
+	{:url "https://somewhere/birthdaylist"
+	 :login-url "https://somewhere.com/login"
+ 	 :username "something"
+ 	 :password "somethingelse"}}
