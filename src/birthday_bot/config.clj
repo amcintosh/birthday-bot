@@ -4,11 +4,10 @@
               [environ.core :refer [env]]))
 
 
-  (defn read-config []
-    (let [path (or (:config-file env)
-                   (io/file (io/resource "config.edn")))]
-      (if (not path)
-        (do
-          (println "Config file not found")
-          (System/exit 0)))
-      (edn/read-string (slurp path))))
+(defn read-config []
+  (let [path (or (:config-file env)
+                 (io/file (io/resource "config.edn")))]
+    (when-not path
+        (println "Config file not found")
+        (System/exit 0))
+    (edn/read-string (slurp path))))

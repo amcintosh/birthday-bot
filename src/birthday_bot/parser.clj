@@ -25,7 +25,7 @@
 
 (defn merge-people [people]
   (if (> (count people) 1)
-    (clojure.string/join " " (map #(first (:content %)) people))
+    (str/join " " (map #(first (:content %)) people))
     (first people)))
 
 (defn get-people [config]
@@ -34,6 +34,7 @@
         ;day "Jul-15"]
         ;day "Jan-4"]
         ;day "Sept-27"]
-    (merge-people (:content (first (html/select (for [tr (html/select data [:tr])
-         :when (str/includes? tr day)]
+    (merge-people (:content (first (html/select
+      (for [tr (html/select data [:tr])
+           :when (str/includes? tr day)]
       tr) [:td]))))))
