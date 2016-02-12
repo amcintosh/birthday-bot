@@ -1,5 +1,7 @@
 # birthday-bot
 
+[![Build Status](https://travis-ci.org/amcintosh/birthday-bot.svg?branch=master)](https://travis-ci.org/amcintosh/birthday-bot)
+
 Parse our company birthday list and send out slack message for today's birthdays.
 
 ## Usage
