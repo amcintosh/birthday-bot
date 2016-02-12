@@ -2,4 +2,10 @@
 	{:url "https://somewhere/birthdaylist"
 	 :login-url "https://somewhere.com/login"
  	 :username "something"
- 	 :password "somethingelse"}}
+ 	 :password "somethingelse"}
+ :slack
+ 	{:api-url "https://slack.com/api" 
+ 	 :token "TOKEN"}
+ :message 
+ 	{:channel "#random"
+ 	 :message "@here Birthdays today! Wish a happy one to %s!"}}

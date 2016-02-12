@@ -1,13 +1,41 @@
 (ns birthday-bot.core
-  (:require [birthday-bot.config :as config]
-            [birthday-bot.parser :as parser]
-            [clojure.pprint])
+  (:require [clojure.tools.cli :refer [parse-opts]]
+            [clojure.tools.logging :as log]
+            [clj-slack.chat :as slack]
+            [birthday-bot.config :as config]
+            [birthday-bot.parser :as parser])
   (:gen-class))
 
-(defn -main
-  [& args]
-  (let [config (config/read-config)]
-    (println "Starting with config:" config)
-    (println (parser/get-day))
-    (println (parser/get-people
-                          (:birthday-webpage config)))))
+
+(defn send-message [config people]
+  (println people)
+  (let [message (:message config)]
+    (slack/post-message (:slack config)
+                        (:channel message)
+                        (format (:message message) people)
+                        {:username "birthday-bot"
+                         :icon_emoji ":birthday:"
+                         :parse "full"
+                         :link_names "1"})))
+
+(def cli-options
+  [["-v" nil "Logging Verbosity level"
+    :id :verbosity
+    :default 0
+    :assoc-fn (fn [m k _] (update-in m [k] inc))]
+   ["-c" "--config FILE" "Config File"]
+   ["-h" "--help"]])
+
+(defn usage [options-summary]
+  (println "birthday-bot.\n\n"
+           "Options:\n"
+           options-summary)
+  (System/exit 0))
+
+(defn -main [& args]
+  (let [{:keys [opts arguments errors summary]} (parse-opts args cli-options)]
+    (cond
+      (:help opts) (usage summary))
+    (let [config (config/read-config)
+          people (parser/get-people (:birthday-webpage config))]
+      (send-message config people))))

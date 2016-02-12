@@ -24,16 +24,13 @@
     [:.confluenceTable :tr]))
 
 (defn merge-people [people]
-  (if (> (count people) 1)
+  (if (:tag (first people))
     (str/join " " (map #(first (:content %)) people))
     (first people)))
 
 (defn get-people [config]
   (let [data (get-data (get-page config))
         day (get-day)]
-        ;day "Jul-15"]
-        ;day "Jan-4"]
-        ;day "Sept-27"]
     (merge-people (:content (first (html/select
       (for [tr (html/select data [:tr])
            :when (str/includes? tr day)]

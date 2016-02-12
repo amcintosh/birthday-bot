@@ -5,9 +5,9 @@
 
 
 (defn read-config []
-  (let [path (or (:config-file env)
-                 (io/file (io/resource "config.edn")))]
+  (let [path (or (:birthday-config env)
+                 (io/resource "config.edn"))]
     (when-not path
         (println "Config file not found")
-        (System/exit 0))
+        (System/exit 1))
     (edn/read-string (slurp path))))

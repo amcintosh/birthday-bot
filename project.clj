@@ -4,11 +4,24 @@
   :license {:name "The MIT License"
             :url "https://github.com/amcintosh/birthday-bot/blob/master/LICENSE"}
   :dependencies [[org.clojure/clojure "1.8.0"]
+                 [org.clojure/tools.cli "0.3.3"]
                  [environ "1.0.2"]
                  [clj-time "0.11.0"]
                  [enlive "1.1.6"]
-                 [clj-http "2.0.1"]]
+                 [clj-http "2.0.1"]
+                 [org.julienxx/clj-slack "0.5.2.1"]]
   :main ^:skip-aot birthday-bot.core
   :resource-paths ["resources"]
   :target-path "target/%s"
-  :profiles {:uberjar {:aot :all}})
+  :profiles {:uberjar {:aot :all}
+             :test {:dependencies [[clj-http-fake "1.0.2"]]
+                    :plugins [[jonase/eastwood "0.2.3"]
+                              [lein-ancient "0.6.8"]
+                              [lein-kibit "0.1.2"]
+                              [lein-cloverage "1.0.6"]
+                              [lein-bikeshed "0.2.0"]]
+                    :aliases {"omni"
+                      ["with-profile" "test"
+                      ["do" ["eastwood" "{:exclude-linters [:unlimited-use]}"]
+                      ["kibit"] ["bikeshed"] ["ancient"] ["cloverage"]]]
+                    }}})
