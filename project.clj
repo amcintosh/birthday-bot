@@ -5,7 +5,6 @@
             :url "https://github.com/amcintosh/birthday-bot/blob/master/LICENSE"}
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/tools.cli "0.3.3"]
-                 [environ "1.0.2"]
                  [clj-time "0.11.0"]
                  [enlive "1.1.6"]
                  [clj-http "2.0.1"]

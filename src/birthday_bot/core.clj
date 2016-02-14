@@ -19,11 +19,11 @@
                          :link_names "1"})))
 
 (def cli-options
-  [["-v" nil "Logging Verbosity level"
+  [["-c" "--config FILE" "Config File"]
+   ["-v" nil "Logging Verbosity level"
     :id :verbosity
     :default 0
     :assoc-fn (fn [m k _] (update-in m [k] inc))]
-   ["-c" "--config FILE" "Config File"]
    ["-h" "--help"]])
 
 (defn usage [options-summary]
@@ -33,9 +33,10 @@
   (System/exit 0))
 
 (defn -main [& args]
-  (let [{:keys [opts arguments errors summary]} (parse-opts args cli-options)]
+  (let [{:keys [options arguments errors summary]}
+      (parse-opts args cli-options)]
     (cond
-      (:help opts) (usage summary))
-    (let [config (config/read-config)
+      (:help options) (usage summary))
+    (let [config (config/read-config (:config options))
           people (parser/get-people (:birthday-webpage config))]
       (send-message config people))))

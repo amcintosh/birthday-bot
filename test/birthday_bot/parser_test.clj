@@ -44,9 +44,3 @@
       (with-redefs-fn {#'birthday-bot.parser/get-page (fn [config] data)
                        #'birthday-bot.parser/get-day (fn [] "Jan-5")}
         #(is (= (get-people {}) (str "Person 1 & Person 2 & Person 3")))))))
-
-
-
-
-
-

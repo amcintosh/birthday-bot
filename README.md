@@ -8,9 +8,9 @@ Parse our company birthday list and send out slack message for today's birthdays
 
 Create a config file using `/resources/config.edn.sample` as a...well...sample.
 
-By default birthday-bot will look for load from `/resources/config.edn` or at the file specified in a BIRTHDAY-CONFIG environment variable.
+By default birthday-bot will look for load from `/resources/config.edn`, which is useful if using `lein run` or if it has been compiled with your configuration included, but otherwise you should use `-c FILE` to specify your configuration.
 
-    $ java -jar birthday-bot-0.1.0-standalone.jar [args]
+    $ java -jar birthday-bot-0.1.0-standalone.jar -c /path/to/config.edn
 
 We maintain our birthday list with a page in confluence. The table has a layout of:
 
@@ -38,7 +38,11 @@ We maintain our birthday list with a page in confluence. The table has a layout 
 
 ## Options
 
-FIXME: listing of options this app accepts.
+```
+  -c, --config FILE  Config File
+  -v                 Logging Verbosity level
+  -h, --help
+```
 
 ## Examples
 
