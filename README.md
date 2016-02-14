@@ -44,8 +44,12 @@ We maintain our birthday list with a page in confluence. The table has a layout 
   -h, --help
 ```
 
-## Examples
+Logs to console and to `./.birthday-bot.log`. The log file will rotate with size. Default logging is `WARN`. You can turn up the logging with the verbosity flag (`-v`). For example:
 
-...
+    $ java -jar birthday-bot-0.1.0-standalone.jar -v
 
-### Bugs
+will log at `INFO` and 
+
+	$ java -jar birthday-bot-0.1.0-standalone.jar -v
+
+will log at `DEBUG`.

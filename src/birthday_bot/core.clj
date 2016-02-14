@@ -3,13 +3,17 @@
             [clojure.tools.logging :as log]
             [clj-slack.chat :as slack]
             [birthday-bot.config :as config]
-            [birthday-bot.parser :as parser])
+            [birthday-bot.parser :as parser]
+            [clojure.tools.logging :as log])
   (:gen-class))
 
 
 (defn send-message [config people]
-  (println people)
   (let [message (:message config)]
+    (log/info "Sending to slack "
+              (:channel message)
+              ", message: "
+              (format (:message message) people))
     (slack/post-message (:slack config)
                         (:channel message)
                         (format (:message message) people)
@@ -26,17 +30,19 @@
     :assoc-fn (fn [m k _] (update-in m [k] inc))]
    ["-h" "--help"]])
 
-(defn usage [options-summary]
-  (println "birthday-bot.\n\n"
-           "Options:\n"
-           options-summary)
-  (System/exit 0))
+(defn exit [status message]
+  (log/warn "System exit: " message)
+  (System/exit status))
 
 (defn -main [& args]
   (let [{:keys [options arguments errors summary]}
       (parse-opts args cli-options)]
     (cond
-      (:help options) (usage summary))
+      (:help options) (exit 0 (str "birthday-bot.\n\n"
+                                   "Options:\n"
+                                   summary))
+      errors (exit 1 errors))
+    (config/config-log options)
     (let [config (config/read-config (:config options))
           people (parser/get-people (:birthday-webpage config))]
       (send-message config people))))

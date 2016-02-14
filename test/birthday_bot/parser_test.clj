@@ -4,6 +4,7 @@
             [clj-http.client :as client])
   (:use clj-http.fake))
 
+
 (deftest get-day-test
   (testing "get-day returns in proper format"
     (is (re-matches (re-pattern (str "(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|"

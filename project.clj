@@ -8,7 +8,10 @@
                  [clj-time "0.11.0"]
                  [enlive "1.1.6"]
                  [clj-http "2.0.1"]
-                 [org.julienxx/clj-slack "0.5.2.1"]]
+                 [org.julienxx/clj-slack "0.5.2.1"]
+                 [org.clojure/tools.logging "0.3.1"]
+                 [log4j/log4j "1.2.17"]
+                 [clj-logging-config "1.9.12"]]
   :main ^:skip-aot birthday-bot.core
   :resource-paths ["resources"]
   :target-path "target/%s"
