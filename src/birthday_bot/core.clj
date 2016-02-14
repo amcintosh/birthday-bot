@@ -10,9 +10,9 @@
 
 (defn send-message [config people]
   (let [message (:message config)]
-    (log/info "Sending to slack "
+    (log/info "Sending to slack"
               (:channel message)
-              ", message: "
+              " message:"
               (format (:message message) people))
     (slack/post-message (:slack config)
                         (:channel message)
@@ -31,7 +31,7 @@
    ["-h" "--help"]])
 
 (defn exit [status message]
-  (log/warn "System exit: " message)
+  (log/warn "System exit:" message)
   (System/exit status))
 
 (defn -main [& args]

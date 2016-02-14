@@ -24,7 +24,7 @@
         (System/exit 1)))))
 
 (defn get-data [data]
-  (log/trace "Got the following data to parse: " data)
+  (log/trace "Got the following data to parse:" data)
   (html/select
     (html/html-resource (java.io.StringReader. (:body data)))
     [:.confluenceTable :tr]))
@@ -37,7 +37,7 @@
 (defn get-people [config]
   (let [data (get-data (get-page config))
         day (get-day)]
-    (log/info "Running for " day)
+    (log/info "Running for" day)
     (merge-people (:content (first (html/select
       (for [tr (html/select data [:tr])
            :when (str/includes? tr day)]
