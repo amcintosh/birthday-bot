@@ -7,4 +7,4 @@ jdk:
   - oraclejdk8
 
 after_success:
-  - coveralls
+  - bash -ex test/coveralls.sh
