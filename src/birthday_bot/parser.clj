@@ -13,11 +13,15 @@
 
 (defn get-page [config]
   (let [my-cs (clj-http.cookies/cookie-store)]
-    (http/post (:login-url config)
+    (try
+      (http/post (:login-url config)
                  {:form-params {:os_username (:username config)
                                 :os_password (:password config)}
                   :cookie-store my-cs})
-    (http/get (:url config) {:cookie-store my-cs})))
+      (http/get (:url config) {:cookie-store my-cs})
+      (catch Exception e
+        (log/error "Unable to open URL:" (:status (ex-data e)))
+        (System/exit 1)))))
 
 (defn get-data [data]
   (log/trace "Got the following data to parse: " data)
