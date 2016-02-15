@@ -45,4 +45,6 @@
     (config/config-log options)
     (let [config (config/read-config (:config options))
           people (parser/get-people (:birthday-webpage config))]
-      (send-message config people))))
+      (if people
+        (send-message config people)
+        (log/info "No birthdays today")))))
