@@ -36,7 +36,7 @@
     (nil? content) " "
     (string? content) (str (str/trim content) " ")
     (map? content) (merge-people (:content content))
-    (coll? content) (apply str (map merge-people content))
+    (coll? content) (clojure.string/join (map merge-people content))
     :else (str content)))
 
 (defn get-people [config]

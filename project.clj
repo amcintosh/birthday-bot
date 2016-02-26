@@ -7,7 +7,7 @@
                  [org.clojure/tools.cli "0.3.3"]
                  [clj-time "0.11.0"]
                  [enlive "1.1.6"]
-                 [clj-http "2.0.1"]
+                 [clj-http "2.1.0"]
                  [org.julienxx/clj-slack "0.5.2.1"]
                  [org.clojure/tools.logging "0.3.1"]
                  [log4j/log4j "1.2.17"]
