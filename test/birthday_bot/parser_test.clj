@@ -36,6 +36,10 @@
                          "<td class=\"confluenceTd\"><p>Person 1 &amp;"
                          "</p><p>Person 2 &amp;</p><p>Person 3</p></td>"
                          "<td class=\"confluenceTd\"><p>Jan-5</p></td></tr>"
+                         "<tr><td colspan=\"1\" class=\"confluenceTd\">"
+                         "Person 1 &amp; <span>Person 2</span></td>"
+                         "<td colspan=\"1\" class=\"confluenceTd\">"
+                         "Jan-6</td></tr>"
                          "</tbody></table></div>")}]
     (testing "get-people with a single person's birthday"
       (with-redefs-fn {#'birthday-bot.parser/get-page (fn [config] data)
@@ -44,4 +48,8 @@
     (testing "get-people with a multiple people's birthdays"
       (with-redefs-fn {#'birthday-bot.parser/get-page (fn [config] data)
                        #'birthday-bot.parser/get-day (fn [] "Jan-5")}
-        #(is (= (get-people {}) (str "Person 1 & Person 2 & Person 3")))))))
+        #(is (= (get-people {}) (str "Person 1 & Person 2 & Person 3")))))
+    (testing "get-people with a two people's birthdays on same line"
+      (with-redefs-fn {#'birthday-bot.parser/get-page (fn [config] data)
+                       #'birthday-bot.parser/get-day (fn [] "Jan-6")}
+        #(is (= (get-people {}) (str "Person 1 & Person 2")))))))

@@ -29,16 +29,21 @@
     (html/html-resource (java.io.StringReader. (:body data)))
     [:.confluenceTable :tr]))
 
-(defn merge-people [people]
-  (if (:tag (first people))
-    (str/join " " (map #(first (:content %)) people))
-    (first people)))
+
+(defn merge-people [content]
+  (log/debug "merge-people:" content)
+  (cond
+    (nil? content) " "
+    (string? content) (str (str/trim content) " ")
+    (map? content) (merge-people (:content content))
+    (coll? content) (apply str (map merge-people content))
+    :else (str content)))
 
 (defn get-people [config]
   (let [data (get-data (get-page config))
         day (get-day)]
     (log/info "Running for" day)
-    (merge-people (:content (first (html/select
+    (str/trim (merge-people (:content (first (html/select
       (for [tr (html/select data [:tr])
            :when (str/includes? tr day)]
-      tr) [:td]))))))
+      tr) [:td])))))))
