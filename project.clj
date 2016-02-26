@@ -1,4 +1,4 @@
-(defproject birthday-bot "0.2.0-SNAPSHOT"
+(defproject birthday-bot "0.2.0"
   :description "Parse our company birthday list and send out slack message for today's birthdays."
   :url "https://github.com/amcintosh/birthday-bot"
   :license {:name "The MIT License"
