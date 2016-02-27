@@ -4,7 +4,8 @@
             [clj-slack.chat :as slack]
             [birthday-bot.config :as config]
             [birthday-bot.parser :as parser]
-            [clojure.tools.logging :as log])
+            [clojure.tools.logging :as log]
+            [clojure.string :as str])
   (:gen-class))
 
 
@@ -45,6 +46,6 @@
     (config/config-log options)
     (let [config (config/read-config (:config options))
           people (parser/get-people (:birthday-webpage config))]
-      (if people
-        (send-message config people)
-        (log/info "No birthdays today")))))
+      (if (str/blank? people)
+        (log/info "No birthdays today")
+        (send-message config people)))))
